@@ -19,23 +19,26 @@
 
 <body>
     <header class="site-header">
-        <nav class="navbar navbar-expand-md navbar-dark bg-purple fixed-top">
+        <nav class="navbar navbar-expand-md navbar-dark bg-gradient fixed-top">
             <div class="container">
-                <a class="navbar-brand mr-5" href="{{ url_for('home') }}">Voxlr</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+                <a class="navbar-brand mr-5" href="{{ url_for('home') }}">
+                    <img src="{{ url_for('static', filename='bg/logo.png') }}" alt="" width="80">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarToggle">
-                    <div class="navbar-nav mr-auto">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div class="navbar-nav mr-auto d-flex align-items-center">
                         <a class="nav-item nav-link" href="{{ url_for('home') }}">Home</a>
                         <a class="nav-item nav-link" href="{{ url_for('about') }}">About</a>
                     </div>
                     <!-- Navbar Right Side -->
-                    <div class="navbar-nav">
+                    <div class="navbar-nav d-flex align-items-center">
                         {% if current_user.is_authenticated %}
                             <a class="nav-item nav-link" href="{{ url_for('new_post') }}">Add Post</a>
                             <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
-                            <a class="nav-item nav-link ml-2" href="{{ url_for('account') }}"><img alt="" class="rounded rounded-4 profile-img" src="{{ url_for('static', filename='profile_pic/' + current_user.image_file) }}"></a>
+                            <a class="nav-item nav-link ml-2 the-img" href="{{ url_for('account') }}"><img alt="" class="rounded rounded-4 profile-img" src="{{ url_for('static', filename='profile_pic/' + current_user.image_file) }}"></a>
+                            <a class="nav-item nav-link the-text" href="{{ url_for('account') }}">Account</a>
                         {% else %}
                             <a class="nav-item nav-link" href="{{ url_for('login') }}">Login</a>
                             <a class="nav-item nav-link" href="{{ url_for('register') }}">Register</a>
@@ -47,7 +50,7 @@
     </header>
 
     <main role="main" class="container">
-        <div class="row mt-5">
+        <div class="row">
             <div class="col-md-8">
                 {% with messages = get_flashed_messages(with_categories=true) %}
                     {% if messages %}
@@ -61,14 +64,14 @@
                 {% block content %}{% endblock %}
             </div>
             <div class="col-md-4">
-                <div class="content-section">
-                    <h3>Our Sidebar</h3>
-                    <p class='text-muted'>You can put any information here you'd like.
+                <div class="content-section position-fixed">
+                    <h3 class="article-title">Our Sidebar</h3>
+                    <p class="article-content">You can put any information here you'd like.
                         <ul class="list-group">
-                            <li class="list-group-item list-group-item-light">Latest Posts</li>
-                            <li class="list-group-item list-group-item-light">Announcements</li>
-                            <li class="list-group-item list-group-item-light">Calendars</li>
-                            <li class="list-group-item list-group-item-light">etc</li>
+                            <li class="list-group-item">Latest Posts</li>
+                            <li class="list-group-item">Announcements</li>
+                            <li class="list-group-item">Calendars</li>
+                            <li class="list-group-item">etc</li>
                         </ul>
                     </p>
                 </div>
