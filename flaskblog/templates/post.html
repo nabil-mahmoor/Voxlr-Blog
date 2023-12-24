@@ -1,50 +1,58 @@
 {% extends "layout.html" %}
 
 {% block content %}
-    <article class="media content-section">
-        <img alt="" class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pic/' + post.author.image_file) }}">
-        <div class="media-body">
-            <div class="article-metadata">
-                <a class="mr-2" href="{{ url_for('user_posts', username=post.author.username) }}">{{ post.author.username }}</a>
-                <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
-                {% if current_user == post.author %}
-                    <div>
-                        <a href="{{ url_for('update_post', post_id=post.id) }}">
-                            <button class="btn btn-secondary btn-sm mt-1 mb-2">Update</button>
-                        </a>
-                        <!-- Button trigger modal -->
-                        <button class="btn btn-danger btn-sm mt-1 mb-2" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
-                        <!-- Modal -->
-                        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-div">
-                                        <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="deleteModalLabel">Delete Post</h1>
-                                            <button type="button" class="btn btn-light" data-bs-dismiss="modal" aria-label="Close">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="13" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16" style="--darkreader-inline-fill: currentColor;" data-darkreader-inline-fill="">
-                                                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"></path>
-                                                </svg>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            Are you sure you want to delete this post?
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                            <form action="{{ url_for('delete_post', post_id=post.id) }}" method="POST">
-                                                <input class="btn btn-danger" type="submit" value="Delete">
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+    <!-- Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-div">
+                    <div class="modal-header">
+                        <h2 class="modal-title fs-5" id="deleteModalLabel">Delete Post</h2>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <span class="close-icon-sm">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="message">
+                            <span class="close-icon-lg">&#11198;</span>
+                            Are you sure you want to delete this post?
                         </div>
                     </div>
-                {% endif %}
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <form action="{{ url_for('delete_post', post_id=post.id) }}" method="POST">
+                            <input class="btn btn-danger" type="submit" value="Delete">
+                        </form>
+                    </div>
+                </div>
             </div>
-            <h2 class="article-title">{{ post.title }}</h2>
-            <p class="article-content">{{ post.content }}</p>
         </div>
-    </article>
+    </div>
+    <article class="media content-section">
+        <a href="{{ url_for('user_posts', username=post.author.username) }}">
+            <img alt="" class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pic/' + post.author.image_file) }}">
+        </a>
+        <div class="media-body">
+            <div class="article-metadata d-flex justify-content-between">
+                {% if current_user == post.author %}
+                <div class="d-flex align-items-center">
+                    <a class="username mr-2" href="{{ url_for('user_posts', username=post.author.username) }}">{{ post.author.username }}</a>
+                    <small class="text-emphasis">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
+                </div>
+                <div class="d-flex align-items-center pb-2">
+                    <a href="{{ url_for('update_post', post_id=post.id) }}" class="btn btn-secondary btn-sm mr-2">
+                        Update
+                    </a>
+                    <!-- Button trigger modal -->
+                    <button class="btn btn-danger btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
+                </div>
+                {% else %}
+                    <a class="username" href="{{ url_for('user_posts', username=post.author.username) }}">{{ post.author.username }}</a>
+                    <small class="text-emphasis">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
+                {% endif %}
+                </div>
+                <h2 class="article-title">{{ post.title }}</h2>
+                <p class="article-content">{{ post.content }}</p>
+            </div>
+        </article>
 {% endblock content %}
