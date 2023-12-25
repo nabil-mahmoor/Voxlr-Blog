@@ -1,5 +1,5 @@
 from flask import current_app
-from itsdangerous import URLSafeTimedSerializer as Serializer
+from itsdangerous.url_safe import URLSafeTimedSerializer as Serializer
 from flaskblog import db, login_manager
 from flask_login import UserMixin
 from datetime import datetime
