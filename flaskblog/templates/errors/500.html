@@ -1,8 +1,17 @@
-{% extends "layout.html" %}
+{% extends "errors/error_base.html" %}
 
 {% block content %}
-    <div class="content-section">
-        <h1>Something Went Wrong (500)</h1>
-        <p>We are experiencing some trouble on our end. Please try again in the near future.</p>
+    <p class="warning orange"><b>Hmm...</b></p>
+    <p>Looks like something went wrong. Mind trying again later?</p>
+    <div class="d-flex justify-content-around align-items-center">
+        <a class="d-flex align-items-center" href="#" onclick="history.back()">
+            <svg class="bi flex-shrink-0 me-2 mr-2" role="img" aria-label="arrow" width="16" height="16" fill="#ffffffc2"><use xlink:href="#left"/></svg>
+            Back
+        </a>
+        <h1 class="error-orange">500</h1>
+        <a class="d-flex align-items-center" href="{{ url_for('main.home') }}">
+            Home
+            <svg class="bi flex-shrink-0 me-2 ml-2" role="img" aria-label="arrow" width="16" height="16" fill="#ffffffc2"><use xlink:href="#right"/></svg>
+        </a>
     </div>
 {% endblock %}

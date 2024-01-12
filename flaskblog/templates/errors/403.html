@@ -1,8 +1,17 @@
-{% extends "layout.html" %}
+{% extends "errors/error_base.html" %}
 
 {% block content %}
-    <div class="content-section">
-        <h1>Page Forbidden (403)</h1>
-        <p>Please check your account and try again.</p>
+    <p class="warning red"><b>Woah There!</b></p>
+    <p>This page is out of bounds</p>
+    <div class="d-flex justify-content-around align-items-center">
+        <a class="d-flex align-items-center" href="#" onclick="history.back()">
+            <svg class="bi flex-shrink-0 me-2 mr-2" role="img" aria-label="arrow" width="16" height="16" fill="#ffffffc2"><use xlink:href="#left"/></svg>
+            Back
+        </a>
+        <h1 class="error-red">403</h1>
+        <a class="d-flex align-items-center" href="{{ url_for('main.home') }}">
+            Home
+            <svg class="bi flex-shrink-0 me-2 ml-2" role="img" aria-label="arrow" width="16" height="16" fill="#ffffffc2"><use xlink:href="#right"/></svg>
+        </a>
     </div>
 {% endblock %}

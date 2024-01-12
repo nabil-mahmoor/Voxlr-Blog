@@ -2,4 +2,19 @@
 
 {% block content %}
     <h1>About</h1>
-{% endblock %}
+{% endblock content %}
+{% block sidebar %}
+    <div class="col-md-4">
+        <div class="content-section position-fixed">
+            <h3 class="article-title">Our Sidebar</h3>
+            <p class="article-content">You can put any information here you'd like.
+                <ul class="list-group">
+                    <li class="list-group-item">Latest Posts</li>
+                    <li class="list-group-item">Announcements</li>
+                    <li class="list-group-item">Calendars</li>
+                    <li class="list-group-item">etc</li>
+                </ul>
+            </p>
+        </div>
+    </div>
+{% endblock sidebar %}
