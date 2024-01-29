@@ -66,21 +66,21 @@
   
 
     <main role="main" class="container">
-        {% block sign %}{% endblock sign %}
         <div class="row">
             <div class="col-md-8">
                 {% with messages = get_flashed_messages(with_categories=true) %}
-                    {% if messages %}
-                        {% for category, message in messages %}
-                            <div class="alert alert-{{ category }} alert-dismissible fade show d-flex align-items-center" role="alert">
-                                <svg class="bi flex-shrink-0 me-2 mr-3" role="img" aria-label="{{ category }}:" width="16" height="16" fill="currentColor"><use xlink:href="#{{ category }}"/></svg>
-                                {{ message }}
-                            </div>
-                        {% endfor %}
-                    {% endif %}
+                {% if messages %}
+                {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show d-flex align-items-center" role="alert">
+                    <svg class="bi flex-shrink-0 me-2 mr-3" role="img" aria-label="{{ category }}:" width="16" height="16" fill="currentColor"><use xlink:href="#{{ category }}"/></svg>
+                    {{ message }}
+                </div>
+                {% endfor %}
+                {% endif %}
                 {% endwith %}
-                {% block content %}{% endblock content %}
             </div>
+            {% block content %}{% endblock content %}
+            {% block sign %}{% endblock sign %}
             {% block sidebar %}{% endblock sidebar %}
         </div>
     </main>
