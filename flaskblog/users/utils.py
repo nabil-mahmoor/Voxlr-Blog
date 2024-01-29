@@ -2,16 +2,17 @@ from flask import url_for, current_app
 from flaskblog import mail
 from flask_mail import Message
 from PIL import Image, ImageOps
+from pathlib import Path
 import secrets
 import os
 
 
 # * Resize and save image into the file system
-def save_picture(form_picture):
+def update_picture(user, form_picture):
     random_hex = secrets.token_hex(8)
     _, f_ext = os.path.splitext(form_picture.filename)
     picture_fn = f'{random_hex}{f_ext}'
-    picture_path = os.path.join(current_app.root_path, 'static', 'profile_pic', picture_fn)
+    picture_path = Path(current_app.root_path, 'static', 'profile_pic', picture_fn)
 
     output_size = (125, 125)
     #  * This method looks nice on the output image
@@ -21,6 +22,11 @@ def save_picture(form_picture):
     #  ! Method used previously, deprecated as it doesn't look as nice as the one implemented
     # i.thumbnail(output_size)
     # i.save(picture_path)
+
+    # * Deletes existing user image
+    if user.image_file != 'default.png':
+        os.remove(Path(current_app.root_path, 'static', 'profile_pic', user.image_file))
+
     return picture_fn
 
 
